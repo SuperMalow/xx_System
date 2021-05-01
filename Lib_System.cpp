@@ -13,7 +13,7 @@ const int MaxBorrow = 6; //每人最多能借6本
 class Book
 {
 private:
-    int tag; ///图书是否存在 1表示存在 2表示不存在
+    int tag; //删除书籍的标记 1表示存在 2表示不存在
     int No; //编号
     string Name; //书名
     string Author; //作者
