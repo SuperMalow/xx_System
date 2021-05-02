@@ -1,129 +1,130 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <iomanip> //æ§åˆ¶æ•°æ®è¾“å‡ºæ ¼å¼
+#include <iomanip> //¿ØÖÆÊı¾İÊä³ö¸ñÊ½
+#include <conio.h>
 
 using namespace std;
 
 
-const int MaxPeople = 10000; //1wäººå¯å€Ÿä¹¦
-const int MaxBooks = 100000;//æœ€å¤šå¯å­˜10wä¹¦
-const int MaxBorrow = 6; //æ¯äººæœ€å¤šèƒ½å€Ÿ6æœ¬
+const int MaxPeople = 10000; //1wÈË¿É½èÊé
+const int MaxBooks = 100000;//×î¶à¿É´æ10wÊé
+const int MaxBorrow = 6; //Ã¿ÈË×î¶àÄÜ½è6±¾
 
-//ä¹¦ç±ç±»
+//Êé¼®Àà
 class Book
 {
 private:
-    int tag; //åˆ é™¤ä¹¦ç±çš„æ ‡è®° 1è¡¨ç¤ºåˆ é™¤ 0è¡¨ç¤ºæ²¡åˆ é™¤
-    int No; //ç¼–å·
-    string Name; //ä¹¦å
-    string Author; //ä½œè€…
-    string Group; //ä¹¦çš„åˆ†ç±»
-    string Press; //å‡ºç‰ˆç¤¾
-    int Press_Time; //å‡ºç‰ˆæ—¶é—´
-    double Book_Price; //ä¹¦çš„ä»·æ ¼
-    int On_Shelf; //æ˜¯å¦åœ¨æ¶  1åœ¨ 0ä¸å­˜åœ¨
+    int tag; //É¾³ıÊé¼®µÄ±ê¼Ç 1±íÊ¾É¾³ı 0±íÊ¾Ã»É¾³ı
+    int No; //±àºÅ
+    string Name; //ÊéÃû
+    string Author; //×÷Õß
+    string Group; //ÊéµÄ·ÖÀà
+    string Press; //³ö°æÉç
+    int Press_Time; //³ö°æÊ±¼ä
+    double Book_Price; //ÊéµÄ¼Û¸ñ
+    int On_Shelf; //ÊÇ·ñÔÚ¼Ü  1ÔÚ 0²»´æÔÚ
 public:
     Book(/* args */);
     ~Book();
 
     string getBookName()
     {
-        return Name; //è·å–ä¹¦å
+        return Name; //»ñÈ¡ÊéÃû
     }
     string getAuthor()
     {
-        return Author; //è·å–ä¹¦çš„ä½œè€…
+        return Author; //»ñÈ¡ÊéµÄ×÷Õß
     }
     string getBookGroup()
     {
-        return Group; //è·å–ä¹¦çš„åˆ†ç±»
+        return Group; //»ñÈ¡ÊéµÄ·ÖÀà
     }
     string getBookPress()
     {
-        return Press; //è·å–å‡ºç‰ˆæ—¶é—´
+        return Press; //»ñÈ¡³ö°æÊ±¼ä
     }
     double getBookPrice()
     {
-        return Book_Price; //è·å–ä¹¦çš„ä»·æ ¼
+        return Book_Price; //»ñÈ¡ÊéµÄ¼Û¸ñ
     }
     int getPressTime()
     {
-        return Press_Time; //è·å–å‡ºç‰ˆæ—¶é—´
+        return Press_Time; //»ñÈ¡³ö°æÊ±¼ä
     }
     int getOnShelf()
     {
-        return On_Shelf; //è·å–æ˜¯å¦åœ¨æ¶
+        return On_Shelf; //»ñÈ¡ÊÇ·ñÔÚ¼Ü
     }
     int getBookNo()
     {
-        return No; //è·å–ä¹¦çš„ç¼–å·
+        return No; //»ñÈ¡ÊéµÄ±àºÅ
     }
     int getBookTag()
     {
-        return tag; //è·å–ä¹¦çš„åˆ é™¤æ ‡è®°
+        return tag; //»ñÈ¡ÊéµÄÉ¾³ı±ê¼Ç
     }
     void setBookName(string name)
     {
-        Name = name; //è®¾ç½®ä¹¦å ä»nameåˆ°Name
+        Name = name; //ÉèÖÃÊéÃû ´Ónameµ½Name
     }
     void setBookAuthor(string author_name)
     {
-        Author = author_name; //è®¾ç½®ä½œè€…
+        Author = author_name; //ÉèÖÃ×÷Õß
     }
     void setBookGroup(string Group_name)
     {
-        Group = Group_name; //è®¾ç½®ä¹¦çš„åˆ†ç±»
+        Group = Group_name; //ÉèÖÃÊéµÄ·ÖÀà
     }
     void setBookPress(string Press_name)
     {
-        Press= Press_name; //è®¾ç½®ä¹¦çš„å‡ºç‰ˆç¤¾
+        Press= Press_name; //ÉèÖÃÊéµÄ³ö°æÉç
     }
     void setBookPrice(double Price_name)
     {
-        Book_Price = Price_name; //è®¾ç½®ä¹¦çš„ä»·æ ¼
+        Book_Price = Price_name; //ÉèÖÃÊéµÄ¼Û¸ñ
     }
     void setBookTime(int Time_name)
     {
-        Press_Time = Time_name; //è®¾ç½®ä¹¦çš„å‡ºç‰ˆæ—¶é—´
+        Press_Time = Time_name; //ÉèÖÃÊéµÄ³ö°æÊ±¼ä
     }
     void setOnSelf(int onself)
     {
-        On_Shelf = onself; //è®¾ç½®æ˜¯å¦åœ¨æ¶
+        On_Shelf = onself; //ÉèÖÃÊÇ·ñÔÚ¼Ü
     }
 
-    //å¢åˆ åŠŸèƒ½
+    //ÔöÉ¾¹¦ÄÜ
     void delBook()
     {
         char i;
-        cout << "ç¡®è®¤åˆ é™¤ä¹¦ç±(y/n)?" << endl;
+        cout << "È·ÈÏÉ¾³ıÊé¼®(y/n)?" << endl;
         cin >> i;
         if (i == 'y' || i == 'Y')
         {
-            tag = 1;  //åˆ é™¤ä¹¦ç±
-            cout << "åˆ é™¤æˆåŠŸ" << endl;
+            tag = 1;  //É¾³ıÊé¼®
+            cout << "É¾³ı³É¹¦" << endl;
         }
     }
-    //å‚æ•°:  ç¼–å·  ä¹¦å  å‡ºç‰ˆç¤¾  åˆ†ç±» ä½œè€… å‡ºç‰ˆæ—¶é—´ æ˜¯å¦åœ¨æ¶
+    //²ÎÊı:  ±àºÅ  ÊéÃû  ³ö°æÉç  ·ÖÀà ×÷Õß ³ö°æÊ±¼ä ÊÇ·ñÔÚ¼Ü
     void addBook(int B_number,string B_name,string B_author,
     string B_press,string B_group,int presstime,double B_price, int B_onself)
     {
         tag = 0;
-        No = B_number; //ç¼–å·
-        Name = B_name; //ä¹¦å
-        Author = B_author; //ä½œè€…
-        Press = B_press; //å‡ºç‰ˆç¤¾
-        Group = B_group; //åˆ†ç±» 
-        Press_Time = presstime; //å‡ºç‰ˆæ—¶é—´
-        Book_Price = B_price; //ä¹¦çš„ä»·æ ¼
-        On_Shelf = B_onself; //æ˜¯å¦åœ¨æ¶
+        No = B_number; //±àºÅ
+        Name = B_name; //ÊéÃû
+        Author = B_author; //×÷Õß
+        Press = B_press; //³ö°æÉç
+        Group = B_group; //·ÖÀà 
+        Press_Time = presstime; //³ö°æÊ±¼ä
+        Book_Price = B_price; //ÊéµÄ¼Û¸ñ
+        On_Shelf = B_onself; //ÊÇ·ñÔÚ¼Ü
 
     }
     int borrowBook()
     {
         if (On_Shelf > 0)
         {
-            /* å€Ÿä¹¦ */
+            /* ½èÊé */
             On_Shelf --;
             return 1;
         }
@@ -133,7 +134,7 @@ public:
     {
         On_Shelf ++;
     }
-    void dispBook()    //æ‰“å°ä¹¦ç±ä¿¡æ¯
+    void dispBook()    //´òÓ¡Êé¼®ĞÅÏ¢
     {
         
         cout << setw(3) << No << endl;
@@ -143,7 +144,7 @@ public:
         cout << setw(3) << Book_Price << endl;
         cout << setw(3) << Press << endl;
         cout << setw(3) << Press_Time << endl;
-        //setw(n) nä¸ªç©ºæ ¼
+        //setw(n) n¸ö¿Õ¸ñ
 
     }
 
@@ -157,21 +158,21 @@ Book::~Book()
 {
 }
 
-//ç®¡ç†ç³»ç»Ÿç»´æŠ¤ æŸ¥åˆ 
+//¹ÜÀíÏµÍ³Î¬»¤ ²éÉ¾
 class LibSystem
 {
 private:
-    int top; //å›¾ä¹¦è®°å½•æŒ‡é’ˆï¼Ÿ
-    Book Bookm[MaxBooks]; //æœ€å¤§å­˜å‚¨ä¹¦çš„æ•°é‡
+    int top; //Í¼Êé¼ÇÂ¼Ö¸Õë£¿
+    Book Bookm[MaxBooks]; //×î´ó´æ´¢ÊéµÄÊıÁ¿
     
 
 
 public:
-    LibSystem()             //æ„é€ å‡½æ•°  å°†bookdata.txt è¯»å–åˆ°Bookm[]é‡Œé¢
+    LibSystem()             //¹¹Ôìº¯Êı  ½«bookdata.txt ¶ÁÈ¡µ½Bookm[]ÀïÃæ
     {
         Book book;
         top = -1;
-        fstream file("bookdata.txt",ios::in); //è¯»å–æ•°æ®
+        fstream file("bookdata.txt",ios::in); //¶ÁÈ¡Êı¾İ
         while (1)
         {
             file.read((char *)&book,sizeof(book));
@@ -185,12 +186,12 @@ public:
         }
         file.close();
     }
-    ~LibSystem()            //ææ„å‡½æ•° å°†Bookm[]å†™åˆ°bookdata.txtæ–‡ä»¶ä¸­
+    ~LibSystem()            //Îö¹¹º¯Êı ½«Bookm[]Ğ´µ½bookdata.txtÎÄ¼şÖĞ
     {
-        fstream file("bookdata.txt",ios::out); //å†™
+        fstream file("bookdata.txt",ios::out); //Ğ´
         for (int i = 0; i <= top; i++)
         {
-            if (Bookm[i].getBookTag() == 0)  //æ²¡æœ‰åˆ é™¤çš„æƒ…å†µä¸‹ å†™å…¥æ•°æ®
+            if (Bookm[i].getBookTag() == 0)  //Ã»ÓĞÉ¾³ıµÄÇé¿öÏÂ Ğ´ÈëÊı¾İ
             {
                 /* code */
                 file.write((char*)&Bookm[i],sizeof(Bookm[i]));
@@ -200,46 +201,46 @@ public:
         file.close();
     }
 
-    void clearBook()            //å…¨éƒ¨åˆ é™¤ä¹¦ç±
+    void clearBook()            //È«²¿É¾³ıÊé¼®
     {
         char i;
-        cout << "æ˜¯å¦ç¡®è®¤å…¨éƒ¨åˆ é™¤ä¹¦ç±(y/n)?" << endl;
+        cout << "ÊÇ·ñÈ·ÈÏÈ«²¿É¾³ıÊé¼®(y/n)?" << endl;
         cin >> i;
         if (i == 'y' || i == 'Y')
         {
             /* code */
-            top = -1; //åˆ é™¤ä¹¦ç±
+            top = -1; //É¾³ıÊé¼®
         }
         
     }            
     int addBook(int n,string na,string an,string gp,
-    string pr,int time,double price,int oself)  //æ·»åŠ å›¾ä¹¦ä¿¡æ¯
+    string pr,int time,double price,int oself)  //Ìí¼ÓÍ¼ÊéĞÅÏ¢
     {
-        //å…ˆåˆ¤æ–­æ˜¯å¦æœ‰è¿™æœ¬ä¹¦ ä¹Ÿå°±æ˜¯å…ˆæŸ¥ä¸€é æ²¡æœ‰æ‰å½•å…¥
+        //ÏÈÅĞ¶ÏÊÇ·ñÓĞÕâ±¾Êé Ò²¾ÍÊÇÏÈ²éÒ»±é Ã»ÓĞ²ÅÂ¼Èë
         Book * p = Cheak1(n);
         if (p == NULL)
         {
             top ++;
-            Bookm[top].addBook(n,na,an,gp,pr,time,price,oself); //å¼€å§‹å½•å…¥ä¹¦ç±çš„ä¿¡æ¯
+            Bookm[top].addBook(n,na,an,gp,pr,time,price,oself); //¿ªÊ¼Â¼ÈëÊé¼®µÄĞÅÏ¢
             return 1;
         }
         
     }
 
-    Book * Cheak1(int book_number)  //æ ¹æ®ä¹¦çš„ç¼–å·æŸ¥æ‰¾ä¹¦ç±
+    Book * Cheak1(int book_number)  //¸ù¾İÊéµÄ±àºÅ²éÕÒÊé¼®
     {
         for (int i = 0; i <= top; i++)
         {
             if (Bookm[i].getBookNo() == book_number && Bookm[i].getBookTag() == 0)
             {
-                /* éå†ä¹¦çš„ç¼–å· å¹¶ä¸”è¯¥ä¹¦æ˜¯å¦è¢«åˆ é™¤ */
+                /* ±éÀúÊéµÄ±àºÅ ²¢ÇÒ¸ÃÊéÊÇ·ñ±»É¾³ı */
                 return &Bookm[i];
             }
             
         }
         
     }
-    Book * Cheak2(string book_name)  //æ ¹æ®ä¹¦çš„åå­—æŸ¥æ‰¾ä¹¦ç±
+    Book * Cheak2(string book_name)  //¸ù¾İÊéµÄÃû×Ö²éÕÒÊé¼®
     {
         int r = 0;
         Book *e;
@@ -249,14 +250,14 @@ public:
             {
                 if (r == 0)
                 {
-                    //æ‰“å°ä¹¦ç±ä¿¡æ¯
-                    cout << setw(3) << "ç¼–å·" << setw(5);
-                    cout << setw(3) << "ä¹¦å" << setw(5);
-                    cout << setw(3) << "åˆ†ç±»" << setw(5);
-                    cout << setw(3) << "ä½œè€…" << setw(5);
-                    cout << setw(3) << "ä»·æ ¼" << setw(5);
-                    cout << setw(3) << "å‡ºç‰ˆç¤¾" << setw(5);
-                    cout << setw(3) << "å‡ºç‰ˆæ—¶é—´" << endl;
+                    //´òÓ¡Êé¼®ĞÅÏ¢
+                    cout << setw(3) << "±àºÅ" << setw(5);
+                    cout << setw(3) << "ÊéÃû" << setw(5);
+                    cout << setw(3) << "·ÖÀà" << setw(5);
+                    cout << setw(3) << "×÷Õß" << setw(5);
+                    cout << setw(3) << "¼Û¸ñ" << setw(5);
+                    cout << setw(3) << "³ö°æÉç" << setw(5);
+                    cout << setw(3) << "³ö°æÊ±¼ä" << endl;
                 }
                 e = &Bookm[i];
                 e->dispBook();
@@ -264,19 +265,312 @@ public:
             }
             if (r == 0)
             {
-                cout << "æ‰¾ä¸åˆ°è¯¥ä¹¦çš„ä¿¡æ¯" << endl;
+                cout << "ÕÒ²»µ½¸ÃÊéµÄĞÅÏ¢" << endl;
             }
         }
         return NULL;   
-        /*foréå† å¦‚æœæ‰¾åˆ°äº†ä¹¦ç±ä¼šåœ¨e->æ˜¾ç¤ºä¹¦ç±çš„ä¿¡æ¯ç„¶åè¿”å›NULL
-        å¦‚æœæ²¡æ‰¾åˆ°ä¸ä¼šæ˜¾ç¤ºä¹¦ç±ä¿¡æ¯ç„¶åè¿”å›NULL*/
+        /*for±éÀú Èç¹ûÕÒµ½ÁËÊé¼®»áÔÚe->ÏÔÊ¾Êé¼®µÄĞÅÏ¢È»ºó·µ»ØNULL
+        Èç¹ûÃ»ÕÒµ½²»»áÏÔÊ¾Êé¼®ĞÅÏ¢È»ºó·µ»ØNULL*/
+    }
+    Book * Cheak3(string book_author)  //¸ù¾İÊéµÄ×÷Õß²éÕÒÊé¼®
+    {
+        Book *e;
+        int r = 0;
+        for (int i = 0; i <= top; i++)
+        {
+            if (Bookm[i].getAuthor() == book_author && Bookm[i].getBookTag() == 0)
+            {
+                if (r == 0)
+                {
+                    //´òÓ¡Êé¼®ĞÅÏ¢
+                    cout << setw(3) << "±àºÅ" << setw(5);
+                    cout << setw(3) << "ÊéÃû" << setw(5);
+                    cout << setw(3) << "·ÖÀà" << setw(5);
+                    cout << setw(3) << "×÷Õß" << setw(5);
+                    cout << setw(3) << "¼Û¸ñ" << setw(5);
+                    cout << setw(3) << "³ö°æÉç" << setw(5);
+                    cout << setw(3) << "³ö°æÊ±¼ä" << endl;
+                }
+                e = &Bookm[i];
+                e->dispBook();
+                r++;
+            }
+            if (r == 0)
+            {
+                cout << "ÕÒ²»µ½¸ÃÊéµÄĞÅÏ¢" << endl;
+            }
+        }
+        return NULL;
+    }
+    Book * Cheak4(string book_press)  //¸ù¾İÊéµÄ³ö°æÉç²éÕÒÊé¼®
+    {
+        Book *e;
+        int r = 0;
+        for (int i = 0; i <= top; i++)
+        {
+            if (Bookm[i].getBookPress() == book_press && Bookm[i].getBookTag() == 0)
+            {
+                if (r == 0)
+                {
+                    //´òÓ¡Êé¼®ĞÅÏ¢
+                    cout << setw(3) << "±àºÅ" << setw(5);
+                    cout << setw(3) << "ÊéÃû" << setw(5);
+                    cout << setw(3) << "·ÖÀà" << setw(5);
+                    cout << setw(3) << "×÷Õß" << setw(5);
+                    cout << setw(3) << "¼Û¸ñ" << setw(5);
+                    cout << setw(3) << "³ö°æÉç" << setw(5);
+                    cout << setw(3) << "³ö°æÊ±¼ä" << endl;
+                }
+                e = &Bookm[i];
+                e->dispBook();
+                r++;
+            }
+            if (r == 0)
+            {
+                cout << "ÕÒ²»µ½¸ÃÊéµÄĞÅÏ¢" << endl;
+            }
+        }
+        return NULL;
+    }
+    Book * Cheak5(int book_presstime)  //¸ù¾İÊéµÄ³ö°æÊ±¼ä²éÕÒÊé¼®
+    {
+        Book *e;
+        int r = 0;
+        for (int i = 0; i <= top; i++)
+        {
+            if (Bookm[i].getPressTime() == book_presstime && Bookm[i].getBookTag() == 0)
+            {
+                if (r == 0)
+                {
+                    //´òÓ¡Êé¼®ĞÅÏ¢
+                    cout << setw(3) << "±àºÅ" << setw(5);
+                    cout << setw(3) << "ÊéÃû" << setw(5);
+                    cout << setw(3) << "·ÖÀà" << setw(5);
+                    cout << setw(3) << "×÷Õß" << setw(5);
+                    cout << setw(3) << "¼Û¸ñ" << setw(5);
+                    cout << setw(3) << "³ö°æÉç" << setw(5);
+                    cout << setw(3) << "³ö°æÊ±¼ä" << endl;
+                }
+                e = &Bookm[i];
+                e->dispBook();
+                r++;
+            }
+            if (r == 0)
+            {
+                cout << "ÕÒ²»µ½¸ÃÊéµÄĞÅÏ¢" << endl;
+            }
+        }
+        return NULL;
+    }
+    Book * Cheak6(int book_price)  //¸ù¾İÊéµÄ³ö°æÊ±¼ä²éÕÒÊé¼®
+    {
+        Book *e;
+        int r = 0;
+        for (int i = 0; i <= top; i++)
+        {
+            if (Bookm[i].getBookPrice() == book_price && Bookm[i].getBookTag() == 0)
+            {
+                if (r == 0)
+                {
+                    //´òÓ¡Êé¼®ĞÅÏ¢
+                    cout << setw(3) << "±àºÅ" << setw(5);
+                    cout << setw(3) << "ÊéÃû" << setw(5);
+                    cout << setw(3) << "·ÖÀà" << setw(5);
+                    cout << setw(3) << "×÷Õß" << setw(5);
+                    cout << setw(3) << "¼Û¸ñ" << setw(5);
+                    cout << setw(3) << "³ö°æÉç" << setw(5);
+                    cout << setw(3) << "³ö°æÊ±¼ä" << endl;
+                }
+                e = &Bookm[i];
+                e->dispBook();
+                r++;
+            }
+            if (r == 0)
+            {
+                cout << "ÕÒ²»µ½¸ÃÊéµÄĞÅÏ¢" << endl;
+            }
+        }
+        return NULL;
     }
 
-
-
+    void dispLib()
+    {
+        for (int i = 0; i <= top; i++)
+        {
+            if (Bookm[i].getBookTag() == 0) 
+            {
+                /* ÅĞ¶ÏÃ»É¾³ıµÄÊé¼®²¢ÏÔÊ¾³öÀ´ */
+                Bookm[i].dispBook();
+            }
+        }
+        
+    }
+    
+    //¶ÔÓÚĞÅÏ¢µÄ±£¹Ü
+    void bookData();
 };
 
+void LibSystem::bookData()
+{
+    char choise = 0;
+    string b_name;
+    string b_aname;
+    string b_group;
+    string b_press;
+    int b_number;//Êé¼®µÄÊıÁ¿ ÊÇ·ñÔÚ¼Ü 
+    int b_presstime;
+    double b_price;
+    char ch;
+    int choise2;
+    int b_id;
+    Book *b;
 
+
+    while (choise != '0')
+    {
+        /* code */
+        cout << setw(15) << " ¹ÜÀíĞÅÏ¢ÏµÍ³:Í¼Êé²Ëµ¥Ä£¿é " << setw(15) <<endl;
+        cout << setw(3) << " 1 -> Ôö¼ÓÍ¼Êé " << setw(4) << " 2 -> ¸ü¸ÄÍ¼Êé " << setw(4)
+        << " 3 -> É¾³ıÍ¼Êé " << setw(3) <<endl;
+        cout << setw(3) << " 4 -> ²éÑ¯Í¼Êé " << setw(4) << " 5 -> ÏÔÊ¾Í¼Êé " << setw(4)
+        << " 6 -> Çå¿ÕÍ¼Êé " << setw(3) <<endl;
+        cout << setw(3) << " 0 -> ·µ»ØÉÏ¼¶Ä¿Â¼ " << endl;
+
+        cout << "ÇëÑ¡Ôñ²Ù×÷Ïî: " ;
+        cin >> choise2;
+        switch (choise2)    
+        {
+        case 1:  //Ôö¼ÓÍ¼Êé
+            cout << "ÇëÊäÈëÊé¼®±àºÅ: " ;
+            cin >> b_id;
+            b = Cheak1(b_id);
+            if (b != NULL)
+            {
+                cout << "¸Ã±àºÅÒÑ¾­´æÔÚÁË£¬ÎŞ·¨½øĞĞÌí¼Ó" << endl;
+                break;
+            }
+            cout << "ÇëÊäÈëÊé¼®Ãû³Æ: ";
+            cin >>b_name;
+            cout << "ÇëÊäÈëÊé¼®×÷ÕßÃû³Æ: ";
+            cin >>b_aname;
+            cout << "ÇëÊäÈëÊé¼®µÄ·ÖÀà: ";
+            cin >>b_group;
+            cout << "ÇëÊäÈëÊé¼®µÄ³ö°æÉçÃû³Æ: ";
+            cin >>b_press;
+            cout << "ÇëÊäÈëÊé¼®µÄ³ö°æÊ±¼ä: ";
+            cin >>b_presstime;
+            cout << "ÇëÊäÈëÊé¼®µÄ¼Û¸ñ: ";
+            cin >>b_price;
+            cout << "ÇëÊäÈëÊé¼®ÊıÁ¿: ";
+            cin >>b_number;
+            
+            //½«ÓÃ»§´Ó¼üÅÌÉÏÊäÈëµÄĞÅÏ¢£¬Í¨¹ıµ÷ÓÃÌí¼ÓÍ¼Êéº¯Êı×÷ÎªÊµ²Î´«¸øĞÎ²Î
+            addBook(b_id,b_name,b_aname,b_group,b_press,b_presstime,b_price,b_number);
+            char choise3;
+            //¸øÊı¾İ×öÒ»¸ö±£´æ
+            {
+                cout << setw(15) << " ÊÇ·ñ±£´æÂ¼ÈëµÄÊé¼®ĞÅÏ¢±£´æµ½±¾µØÎÄ¼ş " << setw(15) <<endl;
+                cout << setw(5) << " 1 -> ±£´æ " << setw(4) << " 2 -> È¡Ïû " << setw(5) <<endl;
+                cout << "ÇëÑ¡Ôñ²Ù×÷Ïî: " ;
+                cin >> choise3;
+                switch (choise3)
+                {
+                case '1':
+                    cout << "±£´æ³É¹¦£¡" << endl;
+                    break;
+                case '2':
+                    break;
+                }
+            }
+            getch();
+
+            case 2:  //¸ü¸ÄÍ¼Êé
+                cout << "ÇëÊäÈëÍ¼ÊéĞÅÏ¢µÄ±àºÅ£º";
+                cin >> b_id;
+                b = Cheak1(b_id);
+                if (b == NULL)
+                {
+                    cout << "´ËÊé²»´æÔÚ£¬ÇëÖØĞÂ¼ì²é" << endl;
+                    break;
+                }
+                cout << "¸ÃÊéĞÅÏ¢ÈçÏÂ£º" << endl;
+                cout << setw(3) << "±àºÅ" << setw(5);
+                cout << setw(3) << "ÊéÃû" << setw(5);
+                cout << setw(3) << "·ÖÀà" << setw(5);
+                cout << setw(3) << "×÷Õß" << setw(5);
+                cout << setw(3) << "¼Û¸ñ" << setw(5);
+                cout << setw(3) << "³ö°æÉç" << setw(5);
+                cout << setw(3) << "³ö°æÊ±¼ä" << endl;
+                b->dispBook();  //´òÓ¡ÊéµÄĞÅÏ¢
+                cout << "ÇëÎÊÊÇ·ñ¸ü¸ÄÍ¼ÊéĞÅÏ¢(y/n)?" << endl;
+                cin >> ch;
+                if (ch == 'y' || ch == 'Y')
+                {
+                    cout << setw(15) << " ¹ÜÀíĞÅÏ¢ÏµÍ³:Í¼Êé²Ëµ¥Ä£¿é " << setw(15) <<endl;
+                    cout << setw(3) << " 1 -> ĞŞ¸ÄÊéÃû " << setw(4) << " 2 -> ĞŞ¸Ä×÷Õß " << setw(4)
+                    << " 3 -> ĞŞ¸Ä·ÖÀà " << setw(3) <<endl;
+                    cout << setw(3) << " 4 -> ĞŞ¸Ä³ö°æÉçÃû " << setw(2) << " 5 -> ĞŞ¸Ä³ö°æÊ±¼ä " << setw(2)
+                    << " 6 -> ĞŞ¸ÄÍ¼Êé¼Û¸ñ " << setw(3) <<endl;
+                    cout << setw(3) << setw(4) << " 7 -> ĞŞ¸ÄÍ¼Êé¿â´æ " << " 0 -> ·µ»ØÉÏ¼¶Ä¿Â¼ "<< endl;
+                    int c_choise;
+                    cout << "ÇëÑ¡Ôñ²Ù×÷Ïî: " ;
+                    cin >> c_choise;
+                    switch (c_choise)
+                    {
+                    case 1:
+                        cout << "ÇëÊäÈëĞŞ¸ÄµÄÊéÃû: ";
+                        cin >> b_name;
+                        b->setBookName(b_name);
+                        break;
+                    case 2:
+                        cout << "ÇëÊäÈëĞŞ¸ÄµÄ×÷Õß: ";
+                        cin >> b_aname;
+                        b->setBookAuthor(b_aname);
+                        break;
+                    case 3:
+                        cout << "ÇëÊäÈëĞŞ¸ÄµÄ·ÖÀà: ";
+                        cin >> b_group;
+                        b->setBookGroup(b_group);
+                        break;
+                    case 4:
+                        cout << "ÇëÊäÈëĞŞ¸ÄµÄ³ö°æÉçÃû: ";
+                        cin >> b_press;
+                        b->setBookPress(b_press);
+                        break;
+                    case 5:
+                        cout << "ÇëÊäÈëĞŞ¸ÄµÄ³ö°æÊ±¼ä: ";
+                        cin >> b_presstime;
+                        b->setBookTime(b_presstime);
+                        break;
+                    case 6:
+                        cout << "ÇëÊäÈëĞŞ¸ÄµÄ¼Û¸ñ: ";
+                        cin >> b_price;
+                        b->setBookPrice(b_price);
+                        break;
+                    case 7:
+                        cout << "ÇëÊäÈëĞŞ¸ÄµÄÍ¼Êé¿â´æ: ";
+                        cin >> b_number;
+                        b->setOnSelf(b_number);
+                        break;
+                    case 0:
+                        
+                        break;
+                    
+                    
+                    default:
+                        break;
+                    }
+                
+                }
+                
+        default:
+
+            break;
+        }
+
+    }
+    
+}
 
 
 
