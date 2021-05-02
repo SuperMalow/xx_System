@@ -362,7 +362,7 @@ public:
         }
         return NULL;
     }
-    Book * Cheak6(int book_price)  //根据书的出版时间查找书籍
+    Book * Cheak6(int book_price)  //根据书的价格查找书籍
     {
         Book *e;
         int r = 0;
@@ -421,7 +421,7 @@ void LibSystem::bookData()
     int b_presstime;
     double b_price;
     char ch;
-    int choise2;
+    char choise2;
     int b_id;
     Book *b;
 
@@ -440,7 +440,8 @@ void LibSystem::bookData()
         cin >> choise2;
         switch (choise2)    
         {
-            case 1:  //增加图书
+            case '1':  //增加图书
+                cout << setw(15) << " **添加图书** " << setw(15) <<endl;
                 cout << "请输入书籍编号: " ;
                 cin >> b_id;
                 b = Cheak1(b_id);
@@ -472,7 +473,7 @@ void LibSystem::bookData()
                     cout << setw(15) << " 是否保存录入的书籍信息保存到本地文件 " << setw(15) <<endl;
                     cout << setw(5) << " 1 -> 保存 " << setw(4) << " 2 -> 取消 " << setw(5) <<endl;
                     cout << "请选择操作项: " ;
-                    cin >> choise3;
+                    cin >> choise3;   //保存书籍到本地
                     switch (choise3)
                     {
                     case '1':
@@ -485,7 +486,8 @@ void LibSystem::bookData()
                 _getch();  //暂停一下
 
 
-            case 2:  //更改图书
+            case '2':  //更改图书
+                cout << setw(15) << " **更改图书** " << setw(15) <<endl;
                 cout << "请输入图书信息的编号：";
                 cin >> b_id;
                 b = Cheak1(b_id);
@@ -494,6 +496,7 @@ void LibSystem::bookData()
                     cout << "此书不存在，请重新检查" << endl;
                     break;
                 }
+                //查找到的信息
                 cout << "该书信息如下：" << endl;
                 cout << setw(3) << "编号" << setw(5);
                 cout << setw(3) << "书名" << setw(5);
@@ -504,7 +507,7 @@ void LibSystem::bookData()
                 cout << setw(3) << "出版时间" << endl;
                 b->dispBook();  //打印书的信息
                 cout << "请问是否更改图书信息(y/n)?" << endl;
-                cin >> ch;
+                cin >> ch;  //确认图书信息修改
                 if (ch == 'y' || ch == 'Y')
                 {
                     cout << setw(15) << " 管理信息系统:图书菜单模块 " << setw(15) <<endl;
@@ -513,47 +516,47 @@ void LibSystem::bookData()
                     cout << setw(3) << " 4 -> 修改出版社名 " << setw(2) << " 5 -> 修改出版时间 " << setw(2)
                     << " 6 -> 修改图书价格 " << setw(3) <<endl;
                     cout << setw(3) << setw(4) << " 7 -> 修改图书库存 " << " 0 -> 返回上级目录 "<< endl;
-                    int c_choise;
+                    char c_choise;   //确认修改图书信息
                     cout << "请选择操作项: " ;
                     cin >> c_choise;
                     switch (c_choise)
                     {
-                    case 1:
+                    case '1':
                         cout << "请输入修改的书名: ";
                         cin >> b_name;
                         b->setBookName(b_name);
                         break;
-                    case 2:
+                    case '2':
                         cout << "请输入修改的作者: ";
                         cin >> b_aname;
                         b->setBookAuthor(b_aname);
                         break;
-                    case 3:
+                    case '3':
                         cout << "请输入修改的分类: ";
                         cin >> b_group;
                         b->setBookGroup(b_group);
                         break;
-                    case 4:
+                    case '4':
                         cout << "请输入修改的出版社名: ";
                         cin >> b_press;
                         b->setBookPress(b_press);
                         break;
-                    case 5:
+                    case '5':
                         cout << "请输入修改的出版时间: ";
                         cin >> b_presstime;
                         b->setBookTime(b_presstime);
                         break;
-                    case 6:
+                    case '6':
                         cout << "请输入修改的价格: ";
                         cin >> b_price;
                         b->setBookPrice(b_price);
                         break;
-                    case 7:
+                    case '7':
                         cout << "请输入修改的图书库存: ";
                         cin >> b_number;
                         b->setOnSelf(b_number);
                         break;
-                    case 0:
+                    case '0':
                         break;
                     }
                 
@@ -563,7 +566,151 @@ void LibSystem::bookData()
                 break;
 
 
-            case 3:  //删除图书
+            case '3':  //删除图书
+                cout << setw(15) << " **删除图书** " << setw(15) <<endl;
+                cout << "请输入图书信息的编号：";
+                cin >> b_id;
+                b = Cheak1(b_id);
+                if (b == NULL)
+                {
+                    cout << "此书不存在，请重新检查" << endl;
+                    break;
+                }               
+                b->delBook();
+                cout << "删除成功！" << endl;
+                _getch();  //暂停一下
+                break;
+            case '4':  //查询图书
+                cout << setw(15) << " **查询图书** " << setw(15) <<endl;
+                cout << setw(3) << " 1 -> 根据编号 " << setw(4) << " 2 -> 根据名称 " << setw(4)
+                << " 3 -> 根据作者 " << setw(3) <<endl;
+                cout << setw(3) << " 4 -> 根据出版社名 " << setw(4) << " 0 -> 返回上级目录 "  << setw(3) <<endl;
+                char f_choise;   //确认查询图书
+                cout << "请选择操作项: " ;
+                cin >> f_choise;
+                switch (f_choise)
+                {
+                case '1':   //根据编号查询图书
+                    cout << "请输入图书编号：" << endl;
+                    cin >> b_id;
+                    b = Cheak1(b_id);
+                    if (b == NULL)
+                    {
+                        cout << "该图书信息不存在" << endl;
+                        break;
+                    }
+                    cout << "该书籍信息如下：" << endl;
+                    cout << setw(3) << "编号" << setw(5);
+                    cout << setw(3) << "书名" << setw(5);
+                    cout << setw(3) << "分类" << setw(5);
+                    cout << setw(3) << "作者" << setw(5);
+                    cout << setw(3) << "价格" << setw(5);
+                    cout << setw(3) << "出版社" << setw(5);
+                    cout << setw(3) << "出版时间" << endl;
+                    b->dispBook();  //打印书的信息
+                    break;
+
+                case '2':   //根据名称查询图书
+                    cout << "请输入图书名称：" << endl;
+                    cin >> b_name;
+                    b = Cheak2(b_name);
+                    if (b == NULL)
+                    {
+                        cout << "该图书信息不存在" << endl;
+                        break;
+                    }
+                    cout << "该书籍信息如下：" << endl;
+                    cout << setw(3) << "编号" << setw(5);
+                    cout << setw(3) << "书名" << setw(5);
+                    cout << setw(3) << "分类" << setw(5);
+                    cout << setw(3) << "作者" << setw(5);
+                    cout << setw(3) << "价格" << setw(5);
+                    cout << setw(3) << "出版社" << setw(5);
+                    cout << setw(3) << "出版时间" << endl;
+                    b->dispBook();  //打印书的信息
+                    break;
+                case '3':   //根据作者
+                    cout << "请输入图书作者：" << endl;
+                    cin >> b_aname;
+                    b = Cheak3(b_aname);
+                    if (b == NULL)
+                    {
+                        cout << "该图书信息不存在" << endl;
+                        break;
+                    }
+                    cout << "该书籍信息如下：" << endl;
+                    cout << setw(3) << "编号" << setw(5);
+                    cout << setw(3) << "书名" << setw(5);
+                    cout << setw(3) << "分类" << setw(5);
+                    cout << setw(3) << "作者" << setw(5);
+                    cout << setw(3) << "价格" << setw(5);
+                    cout << setw(3) << "出版社" << setw(5);
+                    cout << setw(3) << "出版时间" << endl;
+                    b->dispBook();  //打印书的信息
+                    break;
+                case '4':     //根据出版社名
+                    cout << "请输入图书出版社：" << endl;
+                    cin >> b_aname;
+                    b = Cheak4(b_aname);
+                    if (b == NULL)
+                    {
+                        cout << "该图书信息不存在" << endl;
+                        break;
+                    }
+                    cout << "该书籍信息如下：" << endl;
+                    cout << setw(3) << "编号" << setw(5);
+                    cout << setw(3) << "书名" << setw(5);
+                    cout << setw(3) << "分类" << setw(5);
+                    cout << setw(3) << "作者" << setw(5);
+                    cout << setw(3) << "价格" << setw(5);
+                    cout << setw(3) << "出版社" << setw(5);
+                    cout << setw(3) << "出版时间" << endl;
+                    b->dispBook();  //打印书的信息
+                    break;
+                case '5':     //根据出版时间
+                    cout << "请输入图书出版时间：" << endl;
+                    cin >> b_presstime;
+                    b = Cheak5(b_presstime);
+                    if (b == NULL)
+                    {
+                        cout << "该图书信息不存在" << endl;
+                        break;
+                    }
+                    cout << "该书籍信息如下：" << endl;
+                    cout << setw(3) << "编号" << setw(5);
+                    cout << setw(3) << "书名" << setw(5);
+                    cout << setw(3) << "分类" << setw(5);
+                    cout << setw(3) << "作者" << setw(5);
+                    cout << setw(3) << "价格" << setw(5);
+                    cout << setw(3) << "出版社" << setw(5);
+                    cout << setw(3) << "出版时间" << endl;
+                    b->dispBook();  //打印书的信息
+                    break;
+
+                case '6':     //根据书的价格
+                    cout << "请输入图书的价格：" << endl;
+                    cin >> b_price;
+                    b = Cheak6(b_price);
+                    if (b == NULL)
+                    {
+                        cout << "该图书信息不存在" << endl;
+                        break;
+                    }
+                    cout << "该书籍信息如下：" << endl;
+                    cout << setw(3) << "编号" << setw(5);
+                    cout << setw(3) << "书名" << setw(5);
+                    cout << setw(3) << "分类" << setw(5);
+                    cout << setw(3) << "作者" << setw(5);
+                    cout << setw(3) << "价格" << setw(5);
+                    cout << setw(3) << "出版社" << setw(5);
+                    cout << setw(3) << "出版时间" << endl;
+                    b->dispBook();  //打印书的信息
+                    break;
+
+                case '0':
+                    break;
+
+                }
         }
 
     }
