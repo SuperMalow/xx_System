@@ -711,11 +711,49 @@ void LibSystem::bookData()
                     break;
 
                 }
+            case '5':    //显示图书
+                cout << "所有书籍信息如下：" << endl;
+                cout << setw(3) << "编号" << setw(5);
+                cout << setw(3) << "书名" << setw(5);
+                cout << setw(3) << "分类" << setw(5);
+                cout << setw(3) << "作者" << setw(5);
+                cout << setw(3) << "价格" << setw(5);
+                cout << setw(3) << "出版社" << setw(5);
+                cout << setw(3) << "出版时间" << endl;
+                b->dispBook();  //打印书的信息
+                _getch();  //暂停一下
+                break;
+            case '6':    //删除图书
+                clearBook();
+                break;
+            case '0':
+                break;
         }
-
     }
-    
 }
+
+// 读者类别
+class Rearder
+{
+private:
+    /* data */
+public:
+    Rearder(/* args */);
+    ~Rearder();
+};
+
+
+
+// 读者库类
+
+class ReaderData
+{
+private:
+    /* data */
+public:
+    ReaderData(/* args */);
+    ~ReaderData();
+};
 
 
 
