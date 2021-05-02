@@ -761,6 +761,3 @@ public:
     ReaderData(/* args */);
     ~ReaderData();
 };
-
-
-
