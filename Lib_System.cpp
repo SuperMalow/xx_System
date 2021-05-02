@@ -440,49 +440,50 @@ void LibSystem::bookData()
         cin >> choise2;
         switch (choise2)    
         {
-        case 1:  //增加图书
-            cout << "请输入书籍编号: " ;
-            cin >> b_id;
-            b = Cheak1(b_id);
-            if (b != NULL)
-            {
-                cout << "该编号已经存在了，无法进行添加" << endl;
-                break;
-            }
-            cout << "请输入书籍名称: ";
-            cin >>b_name;
-            cout << "请输入书籍作者名称: ";
-            cin >>b_aname;
-            cout << "请输入书籍的分类: ";
-            cin >>b_group;
-            cout << "请输入书籍的出版社名称: ";
-            cin >>b_press;
-            cout << "请输入书籍的出版时间: ";
-            cin >>b_presstime;
-            cout << "请输入书籍的价格: ";
-            cin >>b_price;
-            cout << "请输入书籍数量: ";
-            cin >>b_number;
-            
-            //将用户从键盘上输入的信息，通过调用添加图书函数作为实参传给形参
-            addBook(b_id,b_name,b_aname,b_group,b_press,b_presstime,b_price,b_number);
-            char choise3;
-            //给数据做一个保存
-            {
-                cout << setw(15) << " 是否保存录入的书籍信息保存到本地文件 " << setw(15) <<endl;
-                cout << setw(5) << " 1 -> 保存 " << setw(4) << " 2 -> 取消 " << setw(5) <<endl;
-                cout << "请选择操作项: " ;
-                cin >> choise3;
-                switch (choise3)
+            case 1:  //增加图书
+                cout << "请输入书籍编号: " ;
+                cin >> b_id;
+                b = Cheak1(b_id);
+                if (b != NULL)
                 {
-                case '1':
-                    cout << "保存成功！" << endl;
-                    break;
-                case '2':
+                    cout << "该编号已经存在了，无法进行添加" << endl;
                     break;
                 }
-            }
-            getch();
+                cout << "请输入书籍名称: ";
+                cin >>b_name;
+                cout << "请输入书籍作者名称: ";
+                cin >>b_aname;
+                cout << "请输入书籍的分类: ";
+                cin >>b_group;
+                cout << "请输入书籍的出版社名称: ";
+                cin >>b_press;
+                cout << "请输入书籍的出版时间: ";
+                cin >>b_presstime;
+                cout << "请输入书籍的价格: ";
+                cin >>b_price;
+                cout << "请输入书籍数量: ";
+                cin >>b_number;
+                
+                //将用户从键盘上输入的信息，通过调用添加图书函数作为实参传给形参
+                addBook(b_id,b_name,b_aname,b_group,b_press,b_presstime,b_price,b_number);
+                char choise3;
+                //给数据做一个保存
+                {
+                    cout << setw(15) << " 是否保存录入的书籍信息保存到本地文件 " << setw(15) <<endl;
+                    cout << setw(5) << " 1 -> 保存 " << setw(4) << " 2 -> 取消 " << setw(5) <<endl;
+                    cout << "请选择操作项: " ;
+                    cin >> choise3;
+                    switch (choise3)
+                    {
+                    case '1':
+                        cout << "保存成功！" << endl;
+                        break;
+                    case '2':
+                        break;
+                    }
+                }
+                _getch();  //暂停一下
+
 
             case 2:  //更改图书
                 cout << "请输入图书信息的编号：";
@@ -553,19 +554,16 @@ void LibSystem::bookData()
                         b->setOnSelf(b_number);
                         break;
                     case 0:
-                        
-                        break;
-                    
-                    
-                    default:
                         break;
                     }
                 
                 }
-                
-        default:
+                cout << "修改成功！" << endl;
+                _getch();  //暂停一下
+                break;
 
-            break;
+
+            case 3:  //删除图书
         }
 
     }
