@@ -36,82 +36,21 @@ public:
     int getBookTag();
     void setBookName(string name);
     void setBookAuthor(string author_name);
-
-
-    void setBookGroup(string Group_name)
-    {
-        Group = Group_name; //设置书的分类
-    }
-    void setBookPress(string Press_name)
-    {
-        Press= Press_name; //设置书的出版社
-    }
-    void setBookPrice(double Price_name)
-    {
-        Book_Price = Price_name; //设置书的价格
-    }
-    void setBookTime(int Time_name)
-    {
-        Press_Time = Time_name; //设置书的出版时间
-    }
-    void setOnSelf(int onself)
-    {
-        On_Shelf = onself; //设置是否在架
-    }
-
-    //增删功能
-    void delBook()
-    {
-        char i;
-        cout << "确认删除书籍(y/n)?" << endl;
-        cin >> i;
-        if (i == 'y' || i == 'Y')
-        {
-            tag = 1;  //删除书籍
-            cout << "删除成功" << endl;
-        }
-    }
-    //参数:  编号  书名  出版社  分类 作者 出版时间 是否在架
+    void setBookGroup(string Group_name);
+    void setBookPress(string Press_name);
+    void setBookPrice(double Price_name);
+    void setBookTime(int Time_name);
+    void setOnSelf(int onself);
+    void delBook();
     void addBook(int B_number,string B_name,string B_author,
-    string B_press,string B_group,int presstime,double B_price, int B_onself)
-    {
-        tag = 0;
-        No = B_number; //编号
-        Name = B_name; //书名
-        Author = B_author; //作者
-        Press = B_press; //出版社
-        Group = B_group; //分类 
-        Press_Time = presstime; //出版时间
-        Book_Price = B_price; //书的价格
-        On_Shelf = B_onself; //是否在架
-
-    }
-    int borrowBook()
-    {
-        if (On_Shelf > 0)
-        {
-            /* 借书 */
-            On_Shelf --;
-            return 1;
-        }
-        return 0;
-    }
-    void returnBook()
-    {
-        On_Shelf ++;
-    }
-    void dispBook()    //打印书籍信息
-    {   //setw(n) n个空格
-        cout << setw(3) << No << endl;
-        cout << setw(3) << Name << endl;
-        cout << setw(3) << Group << endl;
-        cout << setw(3) << Author << endl;
-        cout << setw(3) << Book_Price << endl;
-        cout << setw(3) << Press << endl;
-        cout << setw(3) << Press_Time << endl;
-    }
+    string B_press,string B_group,int presstime,double B_price, int B_onself);
+    int borrowBook();
+    void returnBook();
+    void dispBook();
 
 };
+
+//获取到书的信息
 string Book::getBookName()
 {
     return Name; //获取书名
@@ -148,6 +87,9 @@ int Book::getBookTag()
 {
     return tag; //获取书的删除标记
 }
+
+
+//设置书的信息内容
 void Book::setBookName(string name)
 {
     Name = name; //设置书名 从name到Name
@@ -156,11 +98,80 @@ void Book::setBookAuthor(string author_name)
 {
     Author = author_name; //设置作者
 }
+void Book::setBookGroup(string Group_name)
+{
+    Group = Group_name; //设置书的分类
+}
+void Book::setBookPress(string Press_name)
+{
+    Press= Press_name; //设置书的出版社
+}
+void Book::setBookPrice(double Price_name)
+{
+    Book_Price = Price_name; //设置书的价格
+}
+void Book::setBookTime(int Time_name)
+{
+    Press_Time = Time_name; //设置书的出版时间
+}
+void Book::setOnSelf(int onself)
+{
+    On_Shelf = onself; //设置是否在架
+}
 
 
+//增删功能
+void Book::delBook()
+{
+    char i;
+    cout << "确认删除书籍(y/n)?" << endl;
+    cin >> i;
+    if (i == 'y' || i == 'Y')
+    {
+        tag = 1;  //删除书籍
+        cout << "删除成功" << endl;
+    }
+}
+void Book::addBook(int B_number,string B_name,string B_author,
+string B_press,string B_group,int presstime,double B_price, int B_onself)
+{   //编号  书名  出版社  分类 作者 出版时间 是否在架
+    tag = 0;
+    No = B_number; //编号
+    Name = B_name; //书名
+    Author = B_author; //作者
+    Press = B_press; //出版社
+    Group = B_group; //分类 
+    Press_Time = presstime; //出版时间
+    Book_Price = B_price; //书的价格
+    On_Shelf = B_onself; //是否在架
+
+}
+int Book::borrowBook()  //借书
+{
+    if (On_Shelf > 0)
+    {
+        On_Shelf --;
+        return 1;
+    }
+    return 0;
+}
+void Book::returnBook() //还书
+{
+    On_Shelf ++;
+}
+void Book::dispBook()    //打印书籍信息
+{   //setw(n) n个空格
+    cout << setw(3) << No << endl;
+    cout << setw(3) << Name << endl;
+    cout << setw(3) << Group << endl;
+    cout << setw(3) << Author << endl;
+    cout << setw(3) << Book_Price << endl;
+    cout << setw(3) << Press << endl;
+    cout << setw(3) << Press_Time << endl;
+}
 
 
-//管理系统维护 查删
+//管理系统维护 查删类
 class LibSystem
 {
 private:
@@ -209,8 +220,7 @@ public:
         {
             /* code */
             top = -1; //删除书籍
-        }
-        
+        }  
     }            
     int addBook(int n,string na,string an,string gp,
     string pr,int time,double price,int oself)  //添加图书信息
@@ -235,9 +245,7 @@ public:
                 /* 遍历书的编号 并且该书是否被删除 */
                 return &Bookm[i];
             }
-            
         }
-        
     }
     Book * Cheak2(string book_name)  //根据书的名字查找书籍
     {
