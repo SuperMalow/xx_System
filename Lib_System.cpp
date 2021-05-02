@@ -25,53 +25,19 @@ private:
     double Book_Price; //书的价格
     int On_Shelf; //是否在架  1在 0不存在
 public:
-    Book(/* args */);
-    ~Book();
+    string getBookName();
+    string getAuthor();
+    string getBookGroup();
+    string getBookPress();
+    double getBookPrice();
+    int getPressTime();
+    int getOnShelf();
+    int getBookNo();
+    int getBookTag();
+    void setBookName(string name);
+    void setBookAuthor(string author_name);
 
-    string getBookName()
-    {
-        return Name; //获取书名
-    }
-    string getAuthor()
-    {
-        return Author; //获取书的作者
-    }
-    string getBookGroup()
-    {
-        return Group; //获取书的分类
-    }
-    string getBookPress()
-    {
-        return Press; //获取出版时间
-    }
-    double getBookPrice()
-    {
-        return Book_Price; //获取书的价格
-    }
-    int getPressTime()
-    {
-        return Press_Time; //获取出版时间
-    }
-    int getOnShelf()
-    {
-        return On_Shelf; //获取是否在架
-    }
-    int getBookNo()
-    {
-        return No; //获取书的编号
-    }
-    int getBookTag()
-    {
-        return tag; //获取书的删除标记
-    }
-    void setBookName(string name)
-    {
-        Name = name; //设置书名 从name到Name
-    }
-    void setBookAuthor(string author_name)
-    {
-        Author = author_name; //设置作者
-    }
+
     void setBookGroup(string Group_name)
     {
         Group = Group_name; //设置书的分类
@@ -135,8 +101,7 @@ public:
         On_Shelf ++;
     }
     void dispBook()    //打印书籍信息
-    {
-        
+    {   //setw(n) n个空格
         cout << setw(3) << No << endl;
         cout << setw(3) << Name << endl;
         cout << setw(3) << Group << endl;
@@ -144,29 +109,63 @@ public:
         cout << setw(3) << Book_Price << endl;
         cout << setw(3) << Press << endl;
         cout << setw(3) << Press_Time << endl;
-        //setw(n) n个空格
-
     }
 
 };
-
-Book::Book(/* args */)
+string Book::getBookName()
 {
+    return Name; //获取书名
+}
+string Book::getAuthor()
+{
+    return Author; //获取书的作者
+}
+string Book::getBookGroup()
+{
+    return Group; //获取书的分类
+}
+string Book::getBookPress()
+{
+    return Press; //获取出版时间
+}
+double Book::getBookPrice()
+{
+    return Book_Price; //获取书的价格
+}
+int Book::getPressTime()
+{
+    return Press_Time; //获取出版时间
+}
+int Book::getOnShelf()
+{
+    return On_Shelf; //获取是否在架
+}
+int Book::getBookNo()
+{
+    return No; //获取书的编号
+}
+int Book::getBookTag()
+{
+    return tag; //获取书的删除标记
+}
+void Book::setBookName(string name)
+{
+    Name = name; //设置书名 从name到Name
+}
+void Book::setBookAuthor(string author_name)
+{
+    Author = author_name; //设置作者
 }
 
-Book::~Book()
-{
-}
+
+
 
 //管理系统维护 查删
 class LibSystem
 {
 private:
-    int top; //图书记录指针？
+    int top; //图书记录的index下标
     Book Bookm[MaxBooks]; //最大存储书的数量
-    
-
-
 public:
     LibSystem()             //构造函数  将bookdata.txt 读取到Bookm[]里面
     {
