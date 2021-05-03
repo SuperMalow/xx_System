@@ -758,6 +758,6 @@ class ReaderData
 private:
     /* data */
 public:
-    ReaderData(/* args */);
+    ReaderData();
     ~ReaderData();
 };
