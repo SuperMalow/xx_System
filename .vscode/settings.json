@@ -8,7 +8,9 @@
         "algorithm": "cpp",
         "queue": "cpp",
         "typeinfo": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "*.tcc": "cpp",
+        "iosfwd": "cpp"
     },
 
     "C_Cpp.clang_format_sortIncludes": true
