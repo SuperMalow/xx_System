@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 //主函数
 int main()
 {   
@@ -14,7 +13,6 @@ int main()
         cout << setw(3) << setw(4) << " 2021-5-5 " << setw(4)<< setw(3) <<endl;
    }
    
-
     system("pause");
     return 0;
 }
