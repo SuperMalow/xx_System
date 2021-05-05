@@ -743,16 +743,132 @@ void LibSystem::bookData()
 class Rearder
 {
 private:
-    /* data */
+    int R_tag;                  //删除的标记
+    int R_no;                   //读者编号
+    string R_name;              //读者姓名    
+    int R_borBook[MaxBorrow];   //所借书籍                
+
 public:
     Rearder(/* args */);
-    ~Rearder();
+
+    friend ostream &operator<<(ostream& output,Rearder &rd)
+    {
+        output << rd.R_no;
+        output << "";
+        output << endl;
+        return output;
+    }
+    string getReadname()
+    {
+        return this->R_name;
+    }
+    int getReadno()
+    {
+        return this->R_no;
+    }
+    int getReadtag()
+    {
+        return this->R_tag;
+    }
+    string setReadname(string n)
+    {
+        this->R_name = n;
+        return this->R_name;
+    }
+    int setReadno(int No)
+    {
+        this->R_no = No;
+        return this->R_no;
+    }
+    int setReadtag(int Tag)
+    {
+        this->R_tag = Tag;
+        return this->R_tag;
+    }
+
+    void setdelbook()           //设置删除标志
+    {
+        char delbook_choise;
+        cout << "确定要删除吗(y/n)?" << endl;
+        cin >> delbook_choise;
+        if (delbook_choise == 'y' || delbook_choise == 'Y')
+        {
+            this->R_tag = 1;
+        }
+        
+    }
+
+    void addrReader(int n,string na)       //增加读者的记录
+    {
+        this->R_tag = 0;
+        this->R_no = n;
+        this->R_name = na;
+        for (int i = 0; i < MaxBorrow; i++)
+        {
+            this->R_borBook[i] = 0;
+        }
+        
+
+    }
+    void borrowBook(int bookid)             //借书的操作
+    {
+        for (int i = 0; i < MaxBorrow; i++)
+        {
+            if (this->R_borBook[i] == 0)
+            {
+                this->R_borBook[i] = bookid;
+            }
+        }
+    }
+
+    int returnBook(int bookid)             //还书的操作
+    {
+        for (int i = 0; i < MaxBorrow; i++)
+        {
+            if (this->R_borBook[i] == bookid)
+            {
+                this->R_borBook[i] = 0;
+                cout << "还书成功" << endl;
+                return 1;
+            }
+        }
+        cout << "此书你未借出，还书失败" << endl;
+        return 0;
+    }
+
+    void showReaderInfo()                   //显示读者的信息
+    {
+        int hava = 0;
+        int bz = 0;
+
+        cout << setw(3) << this->R_no << setw(5) << this->R_name << setw(10);
+        for (int i = 0; i < MaxBorrow; i++)
+        {
+            if (this->R_borBook[i] != 0)
+            {
+                if (bz == 0)
+                {
+                    hava = 1;
+                    cout << "《" << this->R_borBook[i] << "》\t" << endl;
+                    bz++;
+                }
+            }
+            else
+            {
+                cout << "《" << this->R_borBook << "》\t" << endl;
+            }
+            if (hava == 0)
+            {
+                cout << " 借书未还 " << endl;
+
+            }
+        }
+    }
 };
 
 
 
 // 读者库类
-
 class ReaderData
 {
 private:
