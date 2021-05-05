@@ -800,6 +800,7 @@ public:
 
     void addrReader(int n,string na)       //增加读者的记录
     {
+        //添加读者的ID编号和姓名
         this->R_tag = 0;
         this->R_no = n;
         this->R_name = na;
@@ -868,12 +869,374 @@ public:
 
 
 
-// 读者库类
+// 读者库类   建立读者的个人借阅资料
 class ReaderData
 {
 private:
     /* data */
+    int top;                    //读者的记录指针
+    Rearder reader[MaxPeople];  //读者记录
 public:
-    ReaderData();
-    ~ReaderData();
+    ReaderData()                    //只要调用这个类就会把数据写入文件
+    {
+        //构造函数
+        Rearder s;
+        top = -1;           //读者记录的指针
+        fstream file("reader.txt",ios::in);             //打开一个输入文件
+        while (true)
+        {
+            file.read((char*)&s,sizeof(s));
+            if ( !file)
+            {
+                break;
+            }
+            top++;
+            reader[top] = s;
+            
+        }
+        file.close();           //关闭reader.txt文件
+    }
+    
+    ~ReaderData()                    //把read[]记录写到文本文件
+    {
+        //析构函数
+        fstream file("reader.txt",ios::out);        //打开一个输出文件
+        for (int i = 0; i <=top; i++)
+        {
+            if (reader[i].getReadtag() == 0)
+            {
+                file.write((char*)&reader[i],sizeof(reader[i]));
+            }
+        }
+        file.close();           //关闭reader.txt文件
+    }
+
+    
+
+    void clear()            //删除所有读者的信息
+    {
+        char i;
+        cout << "你确认删除所有记录(y/n)?" << endl;
+        cin >> i;
+        if (i == 'Y' || i == 'y')
+        {
+            top = -1;
+        }
+
+    }
+
+    //查找读者的功能  姓名和编号
+    Rearder* ChreakName(string readername)
+    {
+        for (int i = 0; i <= top; i++)
+        {
+            if (reader[i].getReadname() == readername && reader[i].getReadtag() == 0)
+            {
+                return &reader[i];       //&reader[i]
+            }
+            
+        }
+        return NULL;
+    }
+
+    Rearder* ChreakId(int readerid)    //Rearder *
+    {
+        for (int i = 0; i <= top; i++)
+        {
+            if (reader[i].getReadno() == readerid && reader[i].getReadtag() == 0)
+            {
+                return &reader[i];       //&reader[i]
+            }
+            
+        }
+        return NULL;
+    }
+    
+
+    int addReader(int n,string na)          //添加读者 会先查找是否存在
+    {
+        Rearder *p = ChreakId(n);        //对象指针查找id
+        Rearder *p2 = ChreakName(na);   //查找名字
+        if (p == NULL)
+        {
+            //查无此人
+            top++;
+            reader[top].addrReader(n,na);
+            return 1;
+        }
+        else
+        {
+            //查有此人
+            cout << "该编号已存在，无法添加" << endl;
+        }
+        return 0;
+
+    }
+
+    //信息的输出
+    void ShowInfo()
+    {
+        for (int i = 0; i <= top; i++)
+        {
+            if (reader[i].getReadtag() == 0)
+            {
+                reader[i].showReaderInfo();
+            }
+        }
+    }
+
+    void ReaderInfomatData();       //读者信息库
+
+
+
+
+
 };
+
+//读者信息库
+void ReaderData::ReaderInfomatData()
+{
+    char choise1;
+    string rnmae;
+    int readerid;
+    string readername;
+    int choise2;
+
+    Rearder *r;
+
+    while (choise1 != '0')
+    {
+        cout << setw(15) << " 管理信息系统:读者菜单模块 " << setw(15) <<endl;
+        cout << setw(3) << " 1 -> 增加数据 " << setw(4) << " 2 -> 修改数据 " << setw(4)
+        << " 3 -> 删除数据 " << setw(3) <<endl;
+        cout << setw(3) << " 4 -> 查询数据 " << setw(4) << " 5 -> 显示数据 " << setw(4)
+        << " 6 -> 清空数据 " << setw(3) <<endl;
+        cout << setw(3) << " 0 -> 返回上级目录 " << endl; 
+        cout << "请选择操作[1-6]: " ;
+        cin >> choise1;
+        switch (choise1)
+        {
+        case '1':
+            /* 添加数据 */
+            cout << "请输入读者编号：" ;
+            cin >> readerid;
+            cout << "请输入读者姓名：" ;
+            cin >> rnmae;
+            addReader(readerid,rnmae);
+            cout << "添加读者信息成功!" << endl;
+            _getch();
+            break;
+        case '2':
+            /*修改数据*/
+            cout << "请输入读者编号：" ;
+            cin >> readerid;
+            //修改前需要找到该人
+            r = ChreakId(readerid);
+            if (r == NULL)
+            {
+                /* 不存在 */
+                cout << "该读者不存在，无法进行修改" << endl;
+                break;
+            }
+            r->setReadname(rnmae);
+            cout << "读者信息修改成功!" << endl;
+            _getch();
+            break;
+        case '3':
+            /*删除数据*/
+            cout << "请输入读者编号：" ;
+            cin >> readerid;
+            //修改前需要找到该人
+            r = ChreakId(readerid);
+            if (r == NULL)
+            {
+                /* 不存在 */
+                cout << "该读者不存在，无法进行修改" << endl;
+                break;
+            }
+            r->setdelbook();
+            cout << "删除读者信息成功!" << endl;
+            _getch();
+            break;
+        case '4':
+            /*查询数据*/
+            cout << "请输入读者编号：" ;
+            cin >> readerid;
+            r = ChreakId(readerid);
+            if (r == NULL)
+            {
+                cout << "该读者不存在" << endl;
+                break;
+            }
+            cout << "请输入读者姓名：" ;
+            cin >> rnmae;
+            cout << setw(5) << "读者编号" << setw(5) << "读者姓名" << setw(5) 
+            << "已借书籍编号" <<endl;
+            r->showReaderInfo();
+            addReader(readerid,rnmae);
+            cout << "添加读者信息成功!" << endl;
+            _getch();
+            break;
+        case '5':
+            /*显示数据*/
+            cout << setw(5) << "读者编号" << setw(5) << "读者姓名" << setw(5) 
+            << "已借书籍编号" <<endl;
+            ShowInfo();
+            _getch();
+            break;
+        case '6':
+            /*清空数据*/
+            clear();      //真的会删完全部
+            cout << "删除所有数据成功！" << endl;
+            _getch();
+            break;
+        case '0':
+            break;
+        }
+
+    }
+}
+
+
+//界面的主程序类
+class mainDest
+{
+private:
+    char choise1;
+    char choise2;
+    double xh,nm;
+    int bookid,readerid;
+    ReaderData readerDB;
+    Rearder *r;
+    LibSystem bookDB;
+    Book *b;
+public:
+    int Login()
+    {
+        int k = 0;
+        cout << setw(15) << " 高校图书管理应用系统 " << setw(15) <<endl;
+        cout << setw(3) << setw(4) << " 2021-5-5 " << setw(4)<< setw(3) <<endl;
+        while (choise2 != '0')
+        {
+            ++k;
+            cout << setw(15) << " 高校图书管理应用系统 " << setw(15) <<endl;
+            cout << setw(3) << " 1 - 登录系统 " << setw(4) << " 2 - 退出系统 " 
+            << setw(4)<< setw(3) <<endl;
+            cout << "请选择操作项[1-2]: ";
+            cin >> choise2;
+            switch (choise2)
+            {
+            case '1':
+                /* 登录 */
+                cout << "请输入学号：" ;
+                cin >> xh;
+                cout << "请输入密码：" ;
+                cin >> nm;
+                if (xh >= 123 && xh == nm)
+                {
+                    cout << "登录成功" << endl;
+                    CenterDest();
+                    
+                }
+                if (xh < 12345679 || (xh > 12345679) || (xh != nm))
+                {
+                    cout << "登录失败，你还剩"<< 3-k << "次机会" << endl;
+                    if (k>=3)
+                    {
+                        cout << "输入错误，次数超过3次，程序退出" << endl;
+                        return 1;
+                    }
+                    continue;
+                }
+                break;
+            case '2':
+                break;
+            }
+
+        }
+        return 0;
+    }
+
+    //主菜单界面
+    void CenterDest()
+    {
+        while (choise1 != '0')
+        {
+            cout << setw(15) << " 高校图书管理应用系统 " << setw(15) <<endl;
+            cout << setw(3) << " 1 - 图书信息 " << setw(4) << " 2 - 读者信息 " 
+            << setw(4)<< setw(3) <<endl;
+            cout << setw(3) << " 3 - 图书借阅 " << setw(4) << " 4 - 图书归还 " 
+            << setw(4)<< setw(3) <<endl;
+            cout << setw(3) << " 0 - 退出系统 " << setw(4) << "             " 
+            << setw(4)<< setw(3) <<endl;
+            cout << setw(3) << setw(4) << " 2021-5-5 " << setw(4)<< setw(3) <<endl;
+            cout << setw(15) << " 高校图书管理应用系统 " << setw(15) <<endl;
+            cout << "请选择操作项[0-4]: ";
+            cin >> choise1;
+            switch (choise1)
+            {
+            case '1':
+                /* 图书信息 */
+                bookDB.bookData();
+                break;
+            case '2':
+                /* 读者信息 */
+                readerDB.ReaderInfomatData();
+                break;
+            case '3':
+                /* 图书借阅 */
+                cout << "借书操作："<< endl;
+                cout << "请输入借书读者的编号：";
+                cin >> readerid;
+                r = readerDB.ChreakId(readerid);        //注意
+                if (r == NULL)
+                {
+                    cout << "读者不存在" << endl;
+                    break;
+                }
+                cout << "请输入要借图书的编号：";
+                cin >> bookid;
+                b = bookDB.Cheak1(bookid);
+                if (b == NULL)
+                {
+                    cout << "该图书不存在" << endl;
+                    break;
+                }
+                if (b->borrowBook() == NULL)
+                {
+                    cout << "该图书已借出，无法借阅" << endl;
+                    break;
+                }
+                cout << "读者借书成功！" << endl;
+                r->borrowBook(b->getBookNo());          //借书操作
+                break;
+            case '4':
+                /* 图书归还 */
+                cout << "还书操作："<< endl;
+                cout << "请输入还书读者的编号：";
+                cin >> readerid;
+                r = readerDB.ChreakId(readerid);        //注意readerDB
+                if (r == NULL)
+                {
+                    cout << "读者不存在" << endl;
+                    break;
+                }
+                cout << "请输入要还图书的编号：";
+                cin >> bookid;
+                b = bookDB.Cheak1(bookid);
+                if (b == NULL)
+                {
+                    cout << "该图书不存在" << endl;
+                    break;
+                }
+                b->returnBook();                
+                r->returnBook(b->getBookNo());      //还书
+                break;
+            case '0':
+                /* 退出系统 */
+                break;
+            }
+        }
+    }
+};
+
