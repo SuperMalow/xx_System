@@ -149,6 +149,53 @@ void Car::delCar()
 //查找汽车信息
 void Car::findCar()
 {
+    //打开carData.txt文件
+    ifstream carData("carData.txt",ios::in);
+    if (! carData)
+    {
+        //如果！carData 为真则打开失败
+        cout << "文件打开失败！" << endl;
+        return ;
+    }
+    else        //文件打开成功
+    {
+        string carLicense;      //需要查询的车牌号
+        time_t _time;       
+        time_t t1;          //为了获取当前的时间       然后与文件的时间做减法
+        bool flag = true;   //如果查到了车牌号则让flag为false  ture：没有查到车辆 false：查到了
+
+        cout << "请输入要查询的车牌号:  ";
+        cin >> carLicense;
+
+        while (carData >> carNum)       //读取车牌号
+        {
+            carData >> carType >> color >> allTime;     //读取车辆的信息
+            t1 = time(&_time);      //获取到当前的时间
+            //进入到读取车牌号的循环 需要判断输入的车牌号和读取到的车牌号是否相同
+            if (carLicense == carNum)
+            {
+                flag = false;       //车牌号相同了
+                break;
+            }
+        }
+        if (flag)
+        {
+            cout << "未找到该车辆的信息" << endl;
+        }
+        else        //找到了 输出车辆信息
+        {
+            cout << "车牌号: " << carNum << " " << endl;
+            cout << "类型: " << carType << " " << endl;
+            cout << "颜色: " << color << " " << endl;
+            cout << "停车时长: " << allTime << " " << endl;
+            cout << "计费: " << (t1 - allTime) * 0.005 << " " << endl;
+        }
+        carData.close();        //关闭carData.txt文件
+    }
+    
+    //查询车牌号
+
+    //输出车辆的基本信息和停车时长
 
 }
 //修改汽车信息
