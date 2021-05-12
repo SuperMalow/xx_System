@@ -437,7 +437,46 @@ Admin::~Admin()
 
 void Admin::manager()
 {
+    Car car;
+    while (true)
+    {
+        system("cls");              //清屏操作
+        cout << "1.增加车辆" << endl;
+        cout << "2.显示所有车辆信息" << endl;
+        cout << "3.查询" << endl;
+        cout << "4.修改" << endl;
+        cout << "5.删除" << endl;
+        cout << "6.统计" << endl;
+        cout << "7.退出管理用户" << endl;
 
+        char ch;
+        cout << "请输入要执行的操作: " ;
+        cin >> ch;
+        switch (ch)
+        {
+        case '1':
+            car.addCar();                       //增加车辆
+            break;
+        case '2':
+            car.showInfor();                    //显示所有车辆信息
+            break;
+        case '3':
+            car.findCar();                      //查询 
+            break;
+        case '4':
+            car.modCar();                       //修改
+            break;   
+        case '5':
+            car.delCar();                       //删除
+        case '6':
+            car.timeAmount();                   //统计
+        case '7':
+            break;                              //退出
+        default:
+            cout << "请输入正确的操作" << endl;
+        }
+        system("pause");
+    }
 }
 
 
