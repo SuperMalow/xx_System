@@ -27,7 +27,7 @@ int main()
             admin.manager();                        //管理员
             break;
         case '3':
-            break;
+            exit(0);
         default:
             cout << "请输入正确的操作" << endl;
         }

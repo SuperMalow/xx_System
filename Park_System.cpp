@@ -408,7 +408,7 @@ void User::checkCar()
             car.timeAmount();                    //统计车辆 
             break;
         case '4':
-            break;   
+            return;   
         default:
             cout << "请输入正确的操作" << endl;
         }
@@ -471,7 +471,7 @@ void Admin::manager()
         case '6':
             car.timeAmount();                   //统计
         case '7':
-            break;                              //退出
+            return;                              //退出
         default:
             cout << "请输入正确的操作" << endl;
         }
