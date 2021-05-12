@@ -192,15 +192,86 @@ void Car::findCar()
         }
         carData.close();        //关闭carData.txt文件
     }
-    
-    //查询车牌号
-
-    //输出车辆的基本信息和停车时长
-
 }
 //修改汽车信息
 void Car::modCar()
 {
+    //创建文件读取流，打开carData.txt文件
+    ifstream carData("carData.txt",ios::in);
+    //创建文件写入流,打开tempcarData.txt文件
+    ofstream outData("tempcarData.txt",ios::out);
+    if (!carData || !outData)
+    {
+        //打开两个文件失败
+        cout << "打开文件失败！" << endl;
+        return ;
+    }
+    string name,str;
+    bool flag = true;
+
+    cout << "请输入要修改的车牌号：" ;
+    cin >> carNum;
+
+    //从carData.txt读取车牌号
+    while (carData >> name)
+    {
+        getline(carData, str);               //carData作为输入流 输入到str里面
+        if (carNum == name)                 //输入的数据与文件读取到的一致
+        {
+            time_t _time;
+            cout << "修改后的车牌号：";
+            cin >> carNum;
+            cout << "已修改为：" << carNum << endl;
+
+            cout << "修改后的车的种类：" ;
+            cin >> carType;
+            cout << "已修改为：" << carType << endl;
+
+            cout << "修改后的车的颜色：" ;
+            cin >> color;
+            cout << "已修改为：" << color << endl;
+            allTime = time(&_time);         //将当前的系统时间转换格式之后赋值给allTime
+
+            outData << carNum << " " << carType << " " << color << " " << allTime << endl;
+
+            flag = false;                       //查到了  查完了给其标志一下
+            break;
+        }
+        //上面if里面是查到了的  如果不同则写入TempcarData里面
+        outData << name << " " << str << endl;
+    }
+    if (flag)
+    {
+        cout << "修改车辆数据不存在！" << endl;
+    }
+    else
+    {
+        while (getline(carData,str))
+        {
+            outData << str << endl;     //写入TempcarData里面
+        }
+    }
+    carData.close();            //关闭
+    outData.close();
+
+    //读取TempcarData里面的数据写入到carData
+    ifstream in("tempcarData.txt", ios::in);
+    ofstream out("carData.txt",ios::out);
+    if (!in || !out)        //如果两个其中一个都为空
+    {
+        cout << "文件打开失败" << endl;
+        return ;
+    }
+    else
+    {
+        while (getline(in, str))        //一行一行读取tempcarData数据到str里
+        {
+            out << str << endl;     //把str数据写入到carData里面
+        }
+        
+    }
+    in.close();
+    out.close();
 
 }
 //停车时长统计
@@ -211,7 +282,7 @@ void Car::timeAmount()
 //汽车信息保存
 void Car::saveInfor()
 {
-
+    
 }
 //停车场信息显示
 void Car::showInfor()
