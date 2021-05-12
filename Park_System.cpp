@@ -478,12 +478,3 @@ void Admin::manager()
         system("pause");
     }
 }
-
-
-int main()
-{
-
-
-    system("pause");
-    return 0;
-}
