@@ -14,7 +14,7 @@ private:
     string color;       //汽车颜色
     time_t allTime;    //停车时间
 public:
-    Car(string num,string type,string color,time_t time);
+    Car();
     ~Car();
     void addCar();      //添加车辆
     void delCar();      //删除车辆
@@ -25,7 +25,7 @@ public:
     void showInfor();       //显示车辆的信息(读文件)
 };
 
-Car::Car(string num,string type,string color,time_t time):carNum(num),carType(type),color(color),allTime(time)
+Car::Car()
 {
 }
 
@@ -385,7 +385,35 @@ User::~User()
 
 void User::checkCar()
 {
-
+    Car car;
+    while (true)
+    {
+        system("cls");              //清屏
+        cout << "1.显示车辆状况" << endl;
+        cout << "2.查询车辆信息" << endl;
+        cout << "3.统计车辆" << endl;
+        cout << "4.退出普通用户" << endl;
+        char ch;
+        cout << "请输入要执行的操作: " ;
+        cin >> ch;
+        switch (ch)
+        {
+        case '1':
+            car.showInfor();                    //显示车辆信息
+            break;
+        case '2':
+            car.findCar();                      //查询车辆
+            break;
+        case '3':
+            car.timeAmount();                    //统计车辆 
+            break;
+        case '4':
+            break;   
+        default:
+            cout << "请输入正确的操作" << endl;
+        }
+        system("pause");
+    }
 }
 
 
