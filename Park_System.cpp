@@ -277,17 +277,91 @@ void Car::modCar()
 //停车时长统计
 void Car::timeAmount()
 {
+    ifstream carData("carData.txt",ios::in);
+    if (!carData)
+    {
+        cout << "打开文件失败" << endl;
+        return ;
+    }
+    else
+    {
+        //c1 表示总车辆   c2表示停车不超过一天的车辆
+        int c1 = 0,c2 = 0;
+        time_t _time,t1;
+        while (carData >> carNum)
+        {
+            c1++;
+            t1 = time(&_time);
+            
+            //读取车辆
+            carData >> carType >> color >> allTime;
+
+            //计算时长 不超过一天情况下
+            if ((t1 - allTime) * 0.0001 < long(8.64))   
+            {
+                c2++;
+            }
+        }
+        //循环结束了就显示车辆的停车时长信息
+        cout << "车辆总数：" << c1 << endl;
+        cout << "停车时间不超过一天：" << c2 << endl;
+        cout << "停车时间超过一天" << c1 - c2 << endl;
+    }
+    carData.close();    
 
 }
 //汽车信息保存
 void Car::saveInfor()
 {
-    
+    //文件输出流 打开carData文件
+    ofstream outData("carData.txt",ios::app);
+    if (!outData)
+    {
+        cout << "打开文件失败" << endl;
+    }
+    else
+    {
+        //将信息保存到文件中
+        outData << carNum << " " << carType << " " << color << " " << allTime << endl;
+    }
+    outData.close();
 }
-//停车场信息显示
+//停车场信息显示 显示所有车辆
 void Car::showInfor()
 {
+    ifstream carData("carData.txt",ios::in);
+    if (!carData)
+    {
+        cout << "打开文件失败！" << endl;
+        return ;
+    }
+    else
+    {
+        bool flag = true;
+        time_t _time,t;
 
+        while (carData >> carNum)
+        {
+            //读取数据
+            carData >> carType >> color >> allTime;
+            t = time(&_time);       //获取当前时间
+
+            //输出
+            cout << "车牌号：" << carNum << " " << "车牌类型：" << carType << " "
+            << "颜色：" << color << " " << "停车时长：" << (t - allTime) << "秒"
+            << " " << "计费：" << (t - allTime) * 0.05 << "元" << endl;
+            flag = false;
+        }
+        if (flag)
+        {
+            cout << "\n无车辆信息" << endl;
+        }
+        else
+        {
+            cout << "\n车辆已显示" << endl;
+        }        
+        carData.close();
+    }
 }
 
 
